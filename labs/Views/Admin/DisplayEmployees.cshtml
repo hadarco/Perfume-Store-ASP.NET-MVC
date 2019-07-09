@@ -1,0 +1,10 @@
+﻿@model labs.ModelView.EmployeeViewModel
+@using labs.Models;
+
+<span style="color:mediumpurple"> Current Employees: </span>
+<br />
+@{ 
+    WebGrid obj2 = new WebGrid(Model.Employees, rowsPerPage: 2, canPage:false, canSort:false);
+
+}
+@obj2.GetHtml()

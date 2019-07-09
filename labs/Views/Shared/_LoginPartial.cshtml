@@ -1,0 +1,40 @@
+﻿
+@if (Session["User"] != null)
+{
+    using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + Session["User"].ToString() + "!", "Index", "Home")@*pass to action index in home controller*@
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+
+}
+
+@if (Session["Admin"] != null)
+{
+    using (Html.BeginForm("LogOff", "Login", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @Html.ActionLink("Hello " + Session["Admin"].ToString() + "!", "Index", "Home")@*pass to action index in home controller*@
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        </ul>
+    }
+}
+
+@if((Session["Admin"] == null)&& (Session["User"] == null))
+{
+    FormsAuthentication.SignOut();
+<ul class="nav navbar-nav navbar-right">
+    <li>@Html.ActionLink("Register", "Register", "Login")</li>
+    <li>@Html.ActionLink("Log in", "Login", "Login")</li>
+</ul>
+}

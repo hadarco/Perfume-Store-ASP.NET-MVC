@@ -1,0 +1,97 @@
+﻿@model labs.ModelView.ProductViewModel
+@using labs.Models;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddPerfume</title>
+</head>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<body>
+
+    <div>
+        <h3 style="color:hotpink">Add New Perfume To Intentory</h3>
+
+        <form id="frmAdd">
+            <i style="color:red">@TempData["error"]</i><br />
+            <table>
+                <tr>
+                    <td>Perfume Number: </td>
+                    <td>@Html.TextBoxFor(m => m.Product.ProductNumber) @Html.ValidationMessageFor(x => x.Product.ProductNumber)</td>
+                </tr>
+                <tr>
+                    <td>Perfume Name: </td>
+                    <td>@Html.TextBoxFor(m => m.Product.ProductName) @Html.ValidationMessageFor(x => x.Product.ProductName)</td>
+                </tr>
+                <tr>
+                    <td>Perfume Cost: </td>
+                    <td>@Html.TextBoxFor(m => m.Product.ProductCost) @Html.ValidationMessageFor(x => x.Product.ProductCost)</td>
+                </tr>
+                <tr>
+                    <td>Perfume Quantity: </td>
+                    <td>@Html.TextBoxFor(m => m.Product.ProductQuantity) @Html.ValidationMessageFor(x => x.Product.ProductQuantity)</td>
+                </tr>
+                <tr>
+                    <td><input id="btnSubmit" type="button" onclick="SendData()" value="Add Product" /></td>
+                </tr>
+            </table>
+        </form>
+
+
+    </div>
+    <br />
+    @*@Html.Partial("DisplayProducts", Model)*@
+    <b>Existing Products:</b>
+    <div style="color:red" id="status"></div>
+    <table id="prodTable">
+        <tr>
+            <td>Product Number</td>
+            <td>Product Name</td>
+            <td>Product Cost</td>
+            <td>Product Quantity</td>
+        </tr>
+    </table>
+
+    <script>
+        $("#status").text("Loading Products.....Please Wait");
+        $.get("GetProductsByJson", null, BindData);//null beacause we dont want to send anything to the server
+        function BindData(Products) {
+            $("#prodTable").find("tr:gt(0)").remove();
+            var tbl = $("#prodTable");
+            for (k = 0; k < Products.length; k++) {
+                var newRow = "<tr>" +
+                    "<td>" + Products[k].ProductNumber + "</td>" +
+                    "<td>" + Products[k].ProductName + "</td>" +
+                    "<td>" + Products[k].ProductCost + "</td>" +
+                    "<td>" + Products[k].ProductQuantity + "</td>" +
+                    "</tr>";
+                tbl.append(newRow);
+            }
+
+            $("#status").text("");
+
+        }
+
+        function SendData() {
+            var frmData = $("#frmAdd").serialize();//step 1+2
+            $("#status").text("Saving Products.....Please Wait");
+            $.post("SubmitProduct", frmData, BindData);
+            $("#Product_ProductNumber").val("");
+            $("#Product_ProductName").val("");
+            $("#Product_ProductCost").val("");
+            $("#Product_ProductQuantity").val("");
+            $("#status").text("");
+        }
+    </script>
+    <br/>
+    @Html.ActionLink("Go Back To Home Page", "Index", "Home")
+</body>
+</html>

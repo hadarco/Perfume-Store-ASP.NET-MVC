@@ -1,0 +1,40 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Home</title>
+</head>
+<body>
+    <div>
+
+        <h1 style="color:hotpink">Welcome To Bosmetic!</h1><br />
+        @if (Session["Admin"] != null)
+        {
+            <br />
+            <h3>Hi Admin!</h3>
+            <br />
+            @Html.ActionLink("Add New Perfume", "AddPerfume", "Admin")
+            <br />
+            @Html.ActionLink("Add New Employee", "AddEmployee", "Admin")
+            <br />
+            @Html.ActionLink("Add New Supplier", "AddSupplier", "Admin")
+            <br />
+            @Html.ActionLink("Search Employee", "ShowEmployeeSearch", "Admin")
+            <br />
+            @Html.ActionLink("Search Supplier", "ShowSupplierSearch", "Admin")
+        }
+        <br />
+        @Html.ActionLink("Search Perfume", "ShowSearch", "Product")
+        <br />
+
+        <i style="color:red">@TempData["success"]</i><br />
+
+
+    </div>
+</body>
+</html>

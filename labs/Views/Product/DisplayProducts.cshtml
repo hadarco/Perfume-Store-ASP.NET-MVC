@@ -1,0 +1,10 @@
+﻿@model labs.ModelView.ProductViewModel
+@using labs.Models;
+
+<span style="color:mediumpurple"> Current Products: </span>
+<br />
+@{ 
+    WebGrid obj = new WebGrid(Model.Products, canPage:false, canSort:false);
+
+}
+@obj.GetHtml()

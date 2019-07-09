@@ -1,0 +1,29 @@
+﻿@model labs.ModelView.ProductViewModel
+@using labs.Models;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SearchPerfume</title>
+</head>
+<body>
+    <div>
+        <form action="SearchPerfume" method="post">
+            <h3 style="color:hotpink">Search Perfume</h3>
+            Enter Perfume Name to search <input id="Text1" name="txtPerfumeName" type="text" />
+            <br />
+            <input id="Submit1" type="submit" value="Search Product" />
+        </form>
+    </div>
+    <br />
+    @Html.Partial("DisplayProducts", Model)
+
+    <br />
+    @Html.ActionLink("Go Back To Home Page", "Index", "Home")
+</body>
+</html>

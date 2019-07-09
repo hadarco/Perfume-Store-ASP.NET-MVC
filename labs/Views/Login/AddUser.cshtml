@@ -1,0 +1,67 @@
+﻿@model labs.Models.User
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Enter</title>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</head>
+<body>
+    <div>
+        <i style="color:red">@TempData["error"]</i><br />
+        <h3 style="color:hotpink">Sign Up</h3>
+        @using (Html.BeginForm("Submit", "Login", FormMethod.Post))
+        {
+            <table>
+                <tr>
+                    <td>User Name:</td>
+                    <td>@Html.TextBoxFor(m => m.UserName) @Html.ValidationMessageFor(x => x.UserName) </td>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td>@Html.TextBoxFor(m => m.Password) @Html.ValidationMessageFor(x => x.Password)</td>
+                </tr>
+                <tr>
+                    <td><input id="btnSubmit" type="submit" value="Add User" /></td>
+                </tr>
+            </table>
+
+        }
+
+        <br />
+        @Html.ActionLink("Go Back To Home Page", "Index", "Home")
+        @*<div id="status" style="color:red"></div>
+        <table>
+            <tr id="tblUsers">
+                <td>User Name</td>
+                <td>Password</td>
+            </tr>
+        </table>
+        <br />
+        <br />
+        <script>$("#status").text("Loading Users..............");
+            $.get("GetUsersByJson", null, func);
+            function func(users) {
+                var tbl = $("#tblUsers");
+                for (k = 0 ; users.length ; k++) {
+                    var newRow = "<tr>" +
+                        "<td>" + users[k].UserName + "</td>" +
+                        "<td>" + users[k].password + "</td>" +
+                        "</tr>";
+                    tbl.append(newRow);
+                    $("#status").text("");
+                }
+
+
+            }</script>
+        @@Html.Partial("DisplayUsersWG", Model)@*@
+
+    </div>
+    <br />
+</body>
+</html>
